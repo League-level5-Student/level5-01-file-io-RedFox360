@@ -19,4 +19,23 @@ public class FileDecryptor {
 	 * Create a program that opens the file created by FileEncryptor and decrypts
 	 * the message, then display it to the user in a JOptionPane.
 	 */
+	
+	public static String decrypt(String message, int key) {
+		String[] alphabet="abcdefghijklmnopqrstuvwxyz".split("");
+		String[] shifted = FileEncryptor.getShifted(key);
+		String[] decrypted = new String[message.length()];
+		char[] cArray = message.toLowerCase().toCharArray();
+		for (int i = 0; i < cArray.length; i++) {
+			char c = cArray[i];
+			int indexOfC = FileEncryptor.search(shifted, "" + c);
+			if (indexOfC == -1) {
+				decrypted[i] = "" + c;
+				continue;
+			}
+			;
+			decrypted[i] = alphabet[indexOfC];
+		}
+		return FileEncryptor.join(decrypted);
+			
+	}
 }
